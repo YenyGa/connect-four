@@ -22,4 +22,25 @@ export class BoardComponent implements OnInit {
       [0, 0, 0, 0, 0, 0, 0]
     ];
   }
+
+  onClick(x: number, y: number) {
+    const xPosition = this.getXPosition(y);
+    this.boardMatrix[xPosition][y] = 1;
+
+    console.log(this.boardMatrix);
+  }
+
+  getXPosition(y: number): number {
+    let piecePosition = 0;
+
+    for (let x = this.boardMatrix.length - 1; x > 0; x--) {
+      if (this.boardMatrix[x][y] === 0) {
+        piecePosition = x;
+        x = 0;
+      }
+    }
+
+    return piecePosition;
+  }
+
 }

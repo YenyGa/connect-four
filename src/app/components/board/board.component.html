@@ -1,9 +1,9 @@
 <div class="container">
   <div class="row justify-content-center">
     <div class="board">
-      <div class="row" *ngFor="let row of boardMatrix">
-        <div class="col" *ngFor="let col of row">
-          <app-circle></app-circle>
+      <div class="row" *ngFor="let row of boardMatrix; let x = index">
+        <div class="col" *ngFor="let item of row; let y = index">
+          <app-circle (click)="onClick(x, y)"></app-circle>
         </div>
       </div>
     </div>
