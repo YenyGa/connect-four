@@ -1,0 +1,16 @@
+@import "~src/app/styles/constants";
+
+.circle {
+  background-color: white;
+  border-radius: 50%;
+  height: 5rem;
+  width: 5rem;
+}
+
+.red {
+  background-color: $red-piece
+}
+
+.blue {
+  background-color: $blue-piece;
+}

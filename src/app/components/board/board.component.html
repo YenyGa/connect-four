@@ -3,7 +3,7 @@
     <div class="board">
       <div class="row" *ngFor="let row of boardMatrix; let x = index">
         <div class="col" *ngFor="let item of row; let y = index">
-          <app-circle (click)="onClick(x, y)"></app-circle>
+          <app-piece (click)="onClick(x, y)" [value]="item"></app-piece>
         </div>
       </div>
     </div>
