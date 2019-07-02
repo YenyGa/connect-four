@@ -34,27 +34,36 @@ export class BoardComponent implements OnInit {
 
   onClick(x: number, y: number) {
     const xPosition = this.getXPosition(y);
-    this.paintPiece(xPosition, y);
+    if (xPosition !== undefined) {
+      this.paintPiece(xPosition, y);
+    }
   }
 
   getXPosition(y: number): number {
-    let piecePosition = 0;
-
-    for (let x = this.boardMatrix.length - 1; x > 0; x--) {
+    let piecePosition: number;
+    for (let x = this.boardMatrix.length - 1; x >= 0; x--) {
       if (this.boardMatrix[x][y] === 0) {
         piecePosition = x;
-        x = 0;
+        x = -1;
       }
     }
-
     return piecePosition;
   }
 
   paintPiece(x: number, y: number) {
     const activePlayer = this.players.find(player => player.active);
     this.boardMatrix[x][y] = activePlayer.identifier;
+    this.setNextTurn();
+  }
 
-    console.log(this.boardMatrix);
+  setNextTurn() {
+    const activePlayerIndex = this.players.findIndex(player => player.active);
+    this.players[activePlayerIndex].active  = false;
+    if (activePlayerIndex + 1 < this.players.length) {
+      this.players[activePlayerIndex + 1].active = true;
+    } else {
+      this.players[0].active = true;
+    }
   }
 
 }
