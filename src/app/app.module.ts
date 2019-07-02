@@ -3,13 +3,13 @@ import { NgModule } from '@angular/core';
 
 import { AppComponent } from './app.component';
 import { BoardComponent } from './components/board/board.component';
-import { CircleComponent } from './components/board/circle/circle.component';
+import { PieceComponent } from './components/board/piece/piece.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     BoardComponent,
-    CircleComponent
+    PieceComponent
   ],
   imports: [
     BrowserModule
