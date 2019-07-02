@@ -32,7 +32,7 @@ export class BoardComponent implements OnInit {
     ];
   }
 
-  onClick(x: number, y: number) {
+  onClick(y: number) {
     const xPosition = this.getXPosition(y);
     if (xPosition !== undefined) {
       this.paintPiece(xPosition, y);
