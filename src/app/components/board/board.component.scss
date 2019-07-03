@@ -1,7 +1,18 @@
 @import "~src/app/styles/constants";
 
 .board {
-  height: 100%;
-  width: 100%;
   background: $board-background;
+  height: 100%;
+  margin-top: 7rem;
+  width: fit-content;
+
+  .board-row {
+    padding-bottom: 0.5rem;
+    padding-top: 0.5rem;
+  }
+
+  .board-col {
+    padding-right: 0.5rem;
+    padding-left: 0.5rem;
+  }
 }
