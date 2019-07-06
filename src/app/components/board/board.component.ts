@@ -12,7 +12,7 @@ export class BoardComponent implements OnInit {
 
   boardMatrix: number[][];
   players: Player[];
-  N = 4;
+  connectN = 4;
 
   constructor() { }
 
@@ -53,7 +53,12 @@ export class BoardComponent implements OnInit {
   paintPiece(x: number, y: number) {
     const activePlayer = this.players.find(player => player.active);
     this.boardMatrix[x][y] = activePlayer.identifier;
-    this.setNextTurn();
+    if (this.isAWinner(x, y)) {
+      activePlayer.winner = true;
+      this.showWinnerMessage();
+    } else {
+      this.setNextTurn();
+    }
   }
 
   setNextTurn() {
@@ -64,6 +69,142 @@ export class BoardComponent implements OnInit {
     } else {
       this.players[0].active = true;
     }
+  }
+
+  isAWinner(x: number, y: number): boolean {
+    const activePlayer = this.players.find(player => player.active);
+    return this.checkHorizontalRightWin(x, y, activePlayer) ||
+      this.checkHorizontalLeftWin(x, y, activePlayer) ||
+      this.checkVerticalWin(x, y, activePlayer) ||
+      this.checkDiagonalRightBottomWin(x, y, activePlayer) ||
+      this.checkDiagonalLeftBottomWin(x, y, activePlayer) ||
+      this.checkDiagonalRightTopWin(x, y, activePlayer) ||
+      this.checkDiagonalLeftTopWin(x, y, activePlayer);
+  }
+
+  checkHorizontalRightWin(x: number, y: number, activePlayer: Player): boolean {
+    let connectCount = 1;
+    for (let j = y + 1; j < y + this.connectN; j++) {
+      if (this.boardMatrix[x][j] !== undefined && this.boardMatrix[x][j] === activePlayer.identifier) {
+        connectCount++;
+      } else {
+        j = y + this.connectN;
+      }
+    }
+    if (connectCount === this.connectN) {
+      return true;
+    }
+    return false;
+  }
+
+  checkHorizontalLeftWin(x: number, y: number, activePlayer: Player): boolean {
+    let connectCount = 1;
+    for (let j = y - 1; j > y - this.connectN; j--) {
+      if (this.boardMatrix[x][j] !== undefined && this.boardMatrix[x][j] === activePlayer.identifier) {
+        connectCount++;
+      } else {
+        j = y - this.connectN;
+      }
+    }
+    if (connectCount === this.connectN) {
+      return true;
+    }
+    return false;
+  }
+
+  checkVerticalWin(x: number, y: number, activePlayer: Player): boolean {
+    let connectCount = 1;
+    for (let i = x + 1; i < x + this.connectN; i++) {
+      if (this.boardMatrix[i] !== undefined && this.boardMatrix[i][y] === activePlayer.identifier) {
+        connectCount++;
+      } else {
+        i = x + this.connectN;
+      }
+    }
+    if (connectCount === this.connectN) {
+      return true;
+    }
+    return false;
+  }
+
+  checkDiagonalRightBottomWin(x: number, y: number, activePlayer: Player): boolean {
+    let connectCount = 1;
+    let j = y + 1;
+    for (let i = x + 1; i < x + this.connectN; i++) {
+      if (this.boardMatrix[i] !== undefined &&
+        this.boardMatrix[i][j] !== undefined &&
+        this.boardMatrix[i][j] === activePlayer.identifier) {
+        connectCount++;
+        j = j + 1;
+      } else {
+        i = i + this.connectN;
+      }
+    }
+    if (connectCount === this.connectN) {
+      return true;
+    }
+    return false;
+  }
+
+  checkDiagonalLeftBottomWin(x: number, y: number, activePlayer: Player): boolean {
+    let connectCount = 1;
+    let j = y - 1;
+    for (let i = x + 1; i < x + this.connectN; i++) {
+      if (this.boardMatrix[i] !== undefined &&
+        this.boardMatrix[i][j] !== undefined &&
+        this.boardMatrix[i][j] === activePlayer.identifier) {
+        connectCount++;
+        j = j - 1;
+      } else {
+        i = i + this.connectN;
+      }
+    }
+    if (connectCount === this.connectN) {
+      return true;
+    }
+    return false;
+  }
+
+  checkDiagonalRightTopWin(x: number, y: number, activePlayer: Player): boolean {
+    let connectCount = 1;
+    let i = x - 1;
+    for (let j = y + 1; j < y + this.connectN; j++) {
+      if (this.boardMatrix[i] !== undefined &&
+        this.boardMatrix[i][j] !== undefined &&
+        this.boardMatrix[i][j] === activePlayer.identifier) {
+        connectCount++;
+        i = i - 1;
+      } else {
+        j = j + this.connectN;
+      }
+    }
+    if (connectCount === this.connectN) {
+      return true;
+    }
+    return false;
+  }
+
+  checkDiagonalLeftTopWin(x: number, y: number, activePlayer: Player): boolean {
+    let connectCount = 1;
+    let i = x - 1;
+    for (let j = y - 1; j > y - this.connectN; j--) {
+      if (this.boardMatrix[i] !== undefined &&
+        this.boardMatrix[i][j] !== undefined &&
+        this.boardMatrix[i][j] === activePlayer.identifier) {
+        connectCount++;
+        i = i - 1;
+      } else {
+        j = j - this.connectN;
+      }
+    }
+    if (connectCount === this.connectN) {
+      return true;
+    }
+    return false;
+  }
+
+  showWinnerMessage() {
+    console.log('We have a winner!');
   }
 
 }
