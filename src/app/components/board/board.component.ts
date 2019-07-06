@@ -2,6 +2,7 @@ import {Component, OnInit} from '@angular/core';
 import {Player} from '../../shared/models/player.model';
 import {PlayerColors} from '../../shared/enums/player-colors.enum';
 import {PlayerIdentifiers} from '../../shared/enums/player-identifiers.enum';
+import {Coordenate} from '../../shared/models/coordenate.model';
 
 @Component({
   selector: 'app-board',
@@ -12,6 +13,7 @@ export class BoardComponent implements OnInit {
 
   boardMatrix: number[][];
   players: Player[];
+  lastTurnCoordenates: Coordenate;
   connectN = 4;
 
   constructor() { }
@@ -213,6 +215,21 @@ export class BoardComponent implements OnInit {
 
   resetGame() {
     this.initializeGame();
+  }
+
+  undoTurn() {
+    this.boardMatrix[this.lastTurnCoordenates.x][this.lastTurnCoordenates.y] = 0;
+    this.setPreviousTurn();
+  }
+
+  setPreviousTurn() {
+    const activePlayerIndex = this.players.findIndex(player => player.active);
+    this.players[activePlayerIndex].active  = false;
+    if (activePlayerIndex - 1 > 0) {
+      this.players[activePlayerIndex - 1].active = true;
+    } else {
+      this.players[this.players.length].active = true;
+    }
   }
 
 }
