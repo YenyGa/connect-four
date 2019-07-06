@@ -17,6 +17,10 @@ export class BoardComponent implements OnInit {
   constructor() { }
 
   ngOnInit() {
+    this.initializeGame();
+  }
+
+  initializeGame() {
     this.boardMatrix = [
       [0, 0, 0, 0, 0, 0, 0],
       [0, 0, 0, 0, 0, 0, 0],
@@ -205,6 +209,10 @@ export class BoardComponent implements OnInit {
 
   showWinnerMessage() {
     console.log('We have a winner!');
+  }
+
+  resetGame() {
+    this.initializeGame();
   }
 
 }
