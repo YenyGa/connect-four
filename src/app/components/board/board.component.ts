@@ -14,6 +14,7 @@ export class BoardComponent implements OnInit {
   boardMatrix: number[][];
   players: Player[];
   lastTurnCoordenates: Coordenate;
+  activePlayer: Player;
   connectN = 4;
 
   constructor() { }
@@ -36,6 +37,8 @@ export class BoardComponent implements OnInit {
       { name: 'Player 1', color: PlayerColors.red, identifier: PlayerIdentifiers.p1, active: true, winner: false},
       { name: 'Player 2', color: PlayerColors.blue, identifier: PlayerIdentifiers.p2, active: false, winner: false},
     ];
+
+    this.activePlayer = this.players[0];
   }
 
   onClick(y: number) {
@@ -58,41 +61,29 @@ export class BoardComponent implements OnInit {
   }
 
   paintPiece(x: number, y: number) {
-    const activePlayer = this.players.find(player => player.active);
-    this.boardMatrix[x][y] = activePlayer.identifier;
+    this.boardMatrix[x][y] = this.activePlayer.identifier;
     if (this.isAWinner(x, y)) {
-      activePlayer.winner = true;
+      this.activePlayer.winner = true;
       this.showWinnerMessage();
     } else {
       this.setNextTurn();
     }
   }
 
-  setNextTurn() {
-    const activePlayerIndex = this.players.findIndex(player => player.active);
-    this.players[activePlayerIndex].active  = false;
-    if (activePlayerIndex + 1 < this.players.length) {
-      this.players[activePlayerIndex + 1].active = true;
-    } else {
-      this.players[0].active = true;
-    }
-  }
-
   isAWinner(x: number, y: number): boolean {
-    const activePlayer = this.players.find(player => player.active);
-    return this.checkHorizontalRightWin(x, y, activePlayer) ||
-      this.checkHorizontalLeftWin(x, y, activePlayer) ||
-      this.checkVerticalWin(x, y, activePlayer) ||
-      this.checkDiagonalRightBottomWin(x, y, activePlayer) ||
-      this.checkDiagonalLeftBottomWin(x, y, activePlayer) ||
-      this.checkDiagonalRightTopWin(x, y, activePlayer) ||
-      this.checkDiagonalLeftTopWin(x, y, activePlayer);
+    return this.checkHorizontalRightWin(x, y) ||
+      this.checkHorizontalLeftWin(x, y) ||
+      this.checkVerticalWin(x, y) ||
+      this.checkDiagonalRightBottomWin(x, y) ||
+      this.checkDiagonalLeftBottomWin(x, y) ||
+      this.checkDiagonalRightTopWin(x, y) ||
+      this.checkDiagonalLeftTopWin(x, y);
   }
 
-  checkHorizontalRightWin(x: number, y: number, activePlayer: Player): boolean {
+  checkHorizontalRightWin(x: number, y: number): boolean {
     let connectCount = 1;
     for (let j = y + 1; j < y + this.connectN; j++) {
-      if (this.boardMatrix[x][j] !== undefined && this.boardMatrix[x][j] === activePlayer.identifier) {
+      if (this.boardMatrix[x][j] !== undefined && this.boardMatrix[x][j] === this.activePlayer.identifier) {
         connectCount++;
       } else {
         j = y + this.connectN;
@@ -104,10 +95,10 @@ export class BoardComponent implements OnInit {
     return false;
   }
 
-  checkHorizontalLeftWin(x: number, y: number, activePlayer: Player): boolean {
+  checkHorizontalLeftWin(x: number, y: number): boolean {
     let connectCount = 1;
     for (let j = y - 1; j > y - this.connectN; j--) {
-      if (this.boardMatrix[x][j] !== undefined && this.boardMatrix[x][j] === activePlayer.identifier) {
+      if (this.boardMatrix[x][j] !== undefined && this.boardMatrix[x][j] === this.activePlayer.identifier) {
         connectCount++;
       } else {
         j = y - this.connectN;
@@ -119,10 +110,10 @@ export class BoardComponent implements OnInit {
     return false;
   }
 
-  checkVerticalWin(x: number, y: number, activePlayer: Player): boolean {
+  checkVerticalWin(x: number, y: number): boolean {
     let connectCount = 1;
     for (let i = x + 1; i < x + this.connectN; i++) {
-      if (this.boardMatrix[i] !== undefined && this.boardMatrix[i][y] === activePlayer.identifier) {
+      if (this.boardMatrix[i] !== undefined && this.boardMatrix[i][y] === this.activePlayer.identifier) {
         connectCount++;
       } else {
         i = x + this.connectN;
@@ -134,13 +125,13 @@ export class BoardComponent implements OnInit {
     return false;
   }
 
-  checkDiagonalRightBottomWin(x: number, y: number, activePlayer: Player): boolean {
+  checkDiagonalRightBottomWin(x: number, y: number): boolean {
     let connectCount = 1;
     let j = y + 1;
     for (let i = x + 1; i < x + this.connectN; i++) {
       if (this.boardMatrix[i] !== undefined &&
         this.boardMatrix[i][j] !== undefined &&
-        this.boardMatrix[i][j] === activePlayer.identifier) {
+        this.boardMatrix[i][j] === this.activePlayer.identifier) {
         connectCount++;
         j = j + 1;
       } else {
@@ -153,13 +144,13 @@ export class BoardComponent implements OnInit {
     return false;
   }
 
-  checkDiagonalLeftBottomWin(x: number, y: number, activePlayer: Player): boolean {
+  checkDiagonalLeftBottomWin(x: number, y: number): boolean {
     let connectCount = 1;
     let j = y - 1;
     for (let i = x + 1; i < x + this.connectN; i++) {
       if (this.boardMatrix[i] !== undefined &&
         this.boardMatrix[i][j] !== undefined &&
-        this.boardMatrix[i][j] === activePlayer.identifier) {
+        this.boardMatrix[i][j] === this.activePlayer.identifier) {
         connectCount++;
         j = j - 1;
       } else {
@@ -172,13 +163,13 @@ export class BoardComponent implements OnInit {
     return false;
   }
 
-  checkDiagonalRightTopWin(x: number, y: number, activePlayer: Player): boolean {
+  checkDiagonalRightTopWin(x: number, y: number): boolean {
     let connectCount = 1;
     let i = x - 1;
     for (let j = y + 1; j < y + this.connectN; j++) {
       if (this.boardMatrix[i] !== undefined &&
         this.boardMatrix[i][j] !== undefined &&
-        this.boardMatrix[i][j] === activePlayer.identifier) {
+        this.boardMatrix[i][j] === this.activePlayer.identifier) {
         connectCount++;
         i = i - 1;
       } else {
@@ -191,13 +182,13 @@ export class BoardComponent implements OnInit {
     return false;
   }
 
-  checkDiagonalLeftTopWin(x: number, y: number, activePlayer: Player): boolean {
+  checkDiagonalLeftTopWin(x: number, y: number): boolean {
     let connectCount = 1;
     let i = x - 1;
     for (let j = y - 1; j > y - this.connectN; j--) {
       if (this.boardMatrix[i] !== undefined &&
         this.boardMatrix[i][j] !== undefined &&
-        this.boardMatrix[i][j] === activePlayer.identifier) {
+        this.boardMatrix[i][j] === this.activePlayer.identifier) {
         connectCount++;
         i = i - 1;
       } else {
@@ -223,6 +214,17 @@ export class BoardComponent implements OnInit {
     this.setPreviousTurn();
   }
 
+  setNextTurn() {
+    const activePlayerIndex = this.players.findIndex(player => player.active);
+    this.players[activePlayerIndex].active  = false;
+    if (activePlayerIndex + 1 < this.players.length) {
+      this.players[activePlayerIndex + 1].active = true;
+    } else {
+      this.players[0].active = true;
+    }
+    this.updateActivePlayer();
+  }
+
   setPreviousTurn() {
     const activePlayerIndex = this.players.findIndex(player => player.active);
     this.players[activePlayerIndex].active  = false;
@@ -231,6 +233,11 @@ export class BoardComponent implements OnInit {
     } else {
       this.players[this.players.length - 1].active = true;
     }
+    this.updateActivePlayer();
+  }
+
+  updateActivePlayer() {
+    this.activePlayer = this.players.find(player => player.active);
   }
 
 }
