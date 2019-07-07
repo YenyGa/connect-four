@@ -3,15 +3,29 @@
 .board {
   background: $board-background;
   height: 100%;
+  position: relative;
   width: fit-content;
 
   .board-row {
     padding-bottom: 0.5rem;
     padding-top: 0.5rem;
+
+    .board-col {
+      padding-right: 0.5rem;
+      padding-left: 0.5rem;
+    }
   }
 
-  .board-col {
-    padding-right: 0.5rem;
-    padding-left: 0.5rem;
+  .overlay {
+    position: absolute;
+    display: block;
+    width: 100%;
+    height: 100%;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: $black;
+    z-index: 2;
   }
 }

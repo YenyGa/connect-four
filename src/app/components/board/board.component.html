@@ -1,5 +1,5 @@
 <div class="row mt-4 mb-4 justify-content-center">
-  <button type="button" class="btn btn-dark" (click)="undoTurn()">
+  <button type="button" class="btn btn-dark" (click)="undoTurn()" [disabled]="isThereAWinner">
     <i class="fa fa-undo"></i> Undo turn
   </button>
 </div>
@@ -9,6 +9,7 @@
       <app-piece (click)="onClick(y)" [item]="item" [activePlayer]="activePlayer"></app-piece>
     </div>
   </div>
+  <div class="overlay" *ngIf="isThereAWinner"></div>
 </div>
 <div class="row mt-4 justify-content-center">
   <button type="button" class="btn btn-primary" (click)="resetGame()">Reset Game</button>

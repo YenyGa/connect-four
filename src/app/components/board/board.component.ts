@@ -15,6 +15,7 @@ export class BoardComponent implements OnInit {
   players: Player[];
   lastTurnCoordenates: Coordenate;
   activePlayer: Player;
+  isThereAWinner: boolean;
   connectN = 4;
 
   constructor() { }
@@ -39,6 +40,7 @@ export class BoardComponent implements OnInit {
     ];
 
     this.activePlayer = this.players[0];
+    this.isThereAWinner = false;
   }
 
   onClick(y: number) {
@@ -64,7 +66,7 @@ export class BoardComponent implements OnInit {
     this.boardMatrix[x][y] = this.activePlayer.identifier;
     if (this.isAWinner(x, y)) {
       this.activePlayer.winner = true;
-      this.showWinnerMessage();
+      this.isThereAWinner = true;
     } else {
       this.setNextTurn();
     }
@@ -199,10 +201,6 @@ export class BoardComponent implements OnInit {
       return true;
     }
     return false;
-  }
-
-  showWinnerMessage() {
-    console.log('We have a winner!');
   }
 
   resetGame() {
