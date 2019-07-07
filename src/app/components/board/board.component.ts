@@ -39,9 +39,10 @@ export class BoardComponent implements OnInit {
   }
 
   onClick(y: number) {
-    const xPosition = this.getXPosition(y);
-    if (xPosition !== undefined) {
-      this.paintPiece(xPosition, y);
+    const x = this.getXPosition(y);
+    if (x !== undefined) {
+      this.paintPiece(x, y);
+      this.lastTurnCoordenates = {x, y};
     }
   }
 
@@ -225,10 +226,10 @@ export class BoardComponent implements OnInit {
   setPreviousTurn() {
     const activePlayerIndex = this.players.findIndex(player => player.active);
     this.players[activePlayerIndex].active  = false;
-    if (activePlayerIndex - 1 > 0) {
+    if (activePlayerIndex - 1 >= 0) {
       this.players[activePlayerIndex - 1].active = true;
     } else {
-      this.players[this.players.length].active = true;
+      this.players[this.players.length - 1].active = true;
     }
   }
 

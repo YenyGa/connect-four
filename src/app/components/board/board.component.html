@@ -1,3 +1,8 @@
+<div class="row mt-4 mb-4 justify-content-center">
+  <button type="button" class="btn btn-dark" (click)="undoTurn()">
+    <i class="fa fa-undo"></i> Undo turn
+  </button>
+</div>
 <div class="container board">
   <div class="row board-row" *ngFor="let row of boardMatrix">
     <div class="board-col" *ngFor="let item of row; let y = index">
@@ -7,7 +12,4 @@
 </div>
 <div class="row mt-4 justify-content-center">
   <button type="button" class="btn btn-primary" (click)="resetGame()">Reset Game</button>
-</div>
-<div class="row mt-4 justify-content-center">
-  <button type="button" class="btn btn-dark" (click)="undoTurn()">Undo turn</button>
 </div>
