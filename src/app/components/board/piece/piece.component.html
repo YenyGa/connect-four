@@ -1,8 +1,8 @@
 <div class="circle"
-     [ngClass]="{'red': item === PlayerIdentifiers.p1,
-     'blue': item === PlayerIdentifiers.p2,
-     'red-highlight': redHighLighted,
-     'blue-highlight': blueHighLighted}"
+     [ngClass]="{'p1': item === PlayerIdentifiers.p1,
+     'p2': item === PlayerIdentifiers.p2,
+     'p1-highlight': p1HighLighted,
+     'p2-highlight': p2HighLighted}"
      (mouseenter)="mouseEnter()"
      (mouseleave)="mouseLeave()">
 </div>
