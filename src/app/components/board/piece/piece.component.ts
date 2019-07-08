@@ -27,10 +27,19 @@ export class PieceComponent implements OnInit {
   }
 
   mouseEnter() {
-    if (this.activePlayer.identifier === PlayerIdentifiers.p1) {
-      this.p1HighLighted = true;
-    } else {
-      this.p2HighLighted = true;
+    if (this.item === 0) {
+      if (this.activePlayer.identifier === PlayerIdentifiers.p1) {
+        this.p1HighLighted = true;
+      } else {
+        this.p2HighLighted = true;
+      }
+    }
+  }
+
+  changePieceColor() {
+    if (this.item === 0) {
+      this.p1HighLighted = !this.p1HighLighted;
+      this.p2HighLighted = !this.p2HighLighted;
     }
   }
 
