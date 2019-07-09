@@ -2,7 +2,7 @@ import {Component, OnInit} from '@angular/core';
 import {Player} from '../../shared/models/player.model';
 import {PlayerColors} from '../../shared/enums/player-colors.enum';
 import {PlayerIdentifiers} from '../../shared/enums/player-identifiers.enum';
-import {Coordenate} from '../../shared/models/coordenate.model';
+import {Coordinate} from '../../shared/models/coordenate.model';
 
 @Component({
   selector: 'app-board',
@@ -13,7 +13,7 @@ export class BoardComponent implements OnInit {
 
   boardMatrix: number[][];
   players: Player[];
-  lastTurnCoordenates: Coordenate;
+  lastTurnCoordinates: Coordinate;
   activePlayer: Player;
   isThereAWinner: boolean;
   connectN = 4;
@@ -46,10 +46,10 @@ export class BoardComponent implements OnInit {
   onClick(x: number, y: number) {
     const xFall = this.getXPosition(y);
     if (xFall !== undefined) {
-      const startPosition: Coordenate = {x: x + 1, y};
-      const endPosition: Coordenate = {x: xFall, y};
+      const startPosition: Coordinate = {x: x + 1, y};
+      const endPosition: Coordinate = {x: xFall, y};
       this.animateFall(startPosition, endPosition);
-      this.lastTurnCoordenates = {x: xFall, y};
+      this.lastTurnCoordinates = endPosition;
     }
   }
 
@@ -64,7 +64,7 @@ export class BoardComponent implements OnInit {
     return piecePosition;
   }
 
-  animateFall(startPosition: Coordenate, endPosition: Coordenate) {
+  animateFall(startPosition: Coordinate, endPosition: Coordinate) {
     setTimeout(() => {
       if (startPosition.x <= endPosition.x) {
         this.boardMatrix[startPosition.x][startPosition.y] = this.activePlayer.identifier;
@@ -220,7 +220,7 @@ export class BoardComponent implements OnInit {
   }
 
   undoTurn() {
-    this.boardMatrix[this.lastTurnCoordenates.x][this.lastTurnCoordenates.y] = 0;
+    this.boardMatrix[this.lastTurnCoordinates.x][this.lastTurnCoordinates.y] = 0;
     this.setPreviousTurn();
   }
 
