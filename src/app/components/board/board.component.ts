@@ -2,7 +2,7 @@ import {Component, OnInit} from '@angular/core';
 import {Player} from '../../shared/models/player.model';
 import {PlayerColors} from '../../shared/enums/player-colors.enum';
 import {PlayerIdentifiers} from '../../shared/enums/player-identifiers.enum';
-import {Coordenate} from '../../shared/models/coordenate.model';
+import {Coordinate} from '../../shared/models/coordenate.model';
 
 @Component({
   selector: 'app-board',
@@ -13,7 +13,7 @@ export class BoardComponent implements OnInit {
 
   boardMatrix: number[][];
   players: Player[];
-  lastTurnCoordenates: Coordenate;
+  lastTurnCoordinates: Coordinate;
   activePlayer: Player;
   isThereAWinner: boolean;
   connectN = 4;
@@ -43,11 +43,13 @@ export class BoardComponent implements OnInit {
     this.isThereAWinner = false;
   }
 
-  onClick(y: number) {
-    const x = this.getXPosition(y);
-    if (x !== undefined) {
-      this.paintPiece(x, y);
-      this.lastTurnCoordenates = {x, y};
+  onClick(x: number, y: number) {
+    const xFall = this.getXPosition(y);
+    if (xFall !== undefined) {
+      const startPosition: Coordinate = {x: x + 1, y};
+      const endPosition: Coordinate = {x: xFall, y};
+      this.animateFall(startPosition, endPosition);
+      this.lastTurnCoordinates = endPosition;
     }
   }
 
@@ -62,14 +64,24 @@ export class BoardComponent implements OnInit {
     return piecePosition;
   }
 
-  paintPiece(x: number, y: number) {
-    this.boardMatrix[x][y] = this.activePlayer.identifier;
-    if (this.isAWinner(x, y)) {
-      this.activePlayer.winner = true;
-      this.isThereAWinner = true;
-    } else {
-      this.setNextTurn();
-    }
+  animateFall(startPosition: Coordinate, endPosition: Coordinate) {
+    setTimeout(() => {
+      if (startPosition.x <= endPosition.x) {
+        this.boardMatrix[startPosition.x][startPosition.y] = this.activePlayer.identifier;
+        if (this.boardMatrix[startPosition.x - 1] !== undefined) {
+          this.boardMatrix[startPosition.x - 1][startPosition.y] = 0;
+        }
+        startPosition.x = startPosition.x + 1;
+        this.animateFall(startPosition, endPosition);
+      } else {
+        if (this.isAWinner(endPosition.x, endPosition.y)) {
+          this.activePlayer.winner = true;
+          this.isThereAWinner = true;
+        } else {
+          this.setNextTurn();
+        }
+      }
+    }, 50);
   }
 
   isAWinner(x: number, y: number): boolean {
@@ -208,7 +220,7 @@ export class BoardComponent implements OnInit {
   }
 
   undoTurn() {
-    this.boardMatrix[this.lastTurnCoordenates.x][this.lastTurnCoordenates.y] = 0;
+    this.boardMatrix[this.lastTurnCoordinates.x][this.lastTurnCoordinates.y] = 0;
     this.setPreviousTurn();
   }
 
