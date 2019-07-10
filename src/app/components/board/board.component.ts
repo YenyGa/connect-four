@@ -1,6 +1,5 @@
 import {Component, OnInit} from '@angular/core';
 import {Player} from '../../shared/models/player.model';
-import {PlayerColors} from '../../shared/enums/player-colors.enum';
 import {PlayerIdentifiers} from '../../shared/enums/player-identifiers.enum';
 import {Coordinate} from '../../shared/models/coordenate.model';
 
@@ -15,8 +14,10 @@ export class BoardComponent implements OnInit {
   players: Player[];
   lastTurnCoordinates: Coordinate;
   activePlayer: Player;
-  isThereAWinner: boolean;
+  winner: Player;
   connectN = 4;
+
+  PlayerIdentifiers = PlayerIdentifiers;
 
   constructor() { }
 
@@ -35,12 +36,12 @@ export class BoardComponent implements OnInit {
     ];
 
     this.players = [
-      { name: 'Player 1', color: PlayerColors.red, identifier: PlayerIdentifiers.p1, active: true, winner: false},
-      { name: 'Player 2', color: PlayerColors.blue, identifier: PlayerIdentifiers.p2, active: false, winner: false},
+      { name: 'Player 1', identifier: PlayerIdentifiers.p1, active: true},
+      { name: 'Player 2', identifier: PlayerIdentifiers.p2, active: false},
     ];
 
     this.activePlayer = this.players[0];
-    this.isThereAWinner = false;
+    this.winner = undefined;
   }
 
   onClick(x: number, y: number) {
@@ -75,8 +76,7 @@ export class BoardComponent implements OnInit {
         this.animateFall(startPosition, endPosition);
       } else {
         if (this.isAWinner(endPosition.x, endPosition.y)) {
-          this.activePlayer.winner = true;
-          this.isThereAWinner = true;
+          this.winner = this.activePlayer;
         } else {
           this.setNextTurn();
         }
