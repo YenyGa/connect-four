@@ -1,5 +1,44 @@
 @import "~src/app/styles/constants";
 
+.header {
+  font-size: 3rem;
+  font-weight: bold;
+  color: $header;
+}
+
+.players {
+  font-size: 2rem;
+  font-weight: bold;
+
+  .circle {
+    border-radius: 50%;
+    height: 3rem;
+    margin: auto 1rem;
+    width: 3rem;
+
+    &.red {
+      background-color: $red-piece;
+    }
+
+    &.blue {
+      background-color: $blue-piece;
+    }
+  }
+}
+
+.player-congratulation {
+  font-size: 2rem;
+  font-weight: bold;
+
+  &.red {
+    color: $red-piece;
+  }
+
+  &.blue {
+    color: $blue-piece;
+  }
+}
+
 .board {
   background: $board-background;
   height: 100%;
