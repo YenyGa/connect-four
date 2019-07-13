@@ -44,10 +44,10 @@ export class BoardComponent implements OnInit {
     this.winner = undefined;
   }
 
-  onClick(x: number, y: number) {
+  onClick(y: number) {
     const xFall = this.getXPosition(y);
     if (xFall !== undefined) {
-      const startPosition: Coordinate = {x: x + 1, y};
+      const startPosition: Coordinate = {x: 0, y};
       const endPosition: Coordinate = {x: xFall, y};
       this.animateFall(startPosition, endPosition);
       this.lastTurnCoordinates = endPosition;
