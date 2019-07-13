@@ -2,6 +2,7 @@ import {Component, OnInit} from '@angular/core';
 import {Player} from '../../shared/models/player.model';
 import {PlayerIdentifiers} from '../../shared/enums/player-identifiers.enum';
 import {Coordinate} from '../../shared/models/coordenate.model';
+import {ActivePlayerService} from '../../shared/service/active-player.service';
 
 @Component({
   selector: 'app-board',
@@ -17,9 +18,10 @@ export class BoardComponent implements OnInit {
   winner: Player;
   connectN = 4;
 
+
   PlayerIdentifiers = PlayerIdentifiers;
 
-  constructor() { }
+  constructor(private activePlayerService: ActivePlayerService) { }
 
   ngOnInit() {
     this.initializeGame();
@@ -44,10 +46,10 @@ export class BoardComponent implements OnInit {
     this.winner = undefined;
   }
 
-  onClick(x: number, y: number) {
+  onClick(y: number) {
     const xFall = this.getXPosition(y);
     if (xFall !== undefined) {
-      const startPosition: Coordinate = {x: x + 1, y};
+      const startPosition: Coordinate = {x: 0, y};
       const endPosition: Coordinate = {x: xFall, y};
       this.animateFall(startPosition, endPosition);
       this.lastTurnCoordinates = endPosition;
@@ -248,6 +250,7 @@ export class BoardComponent implements OnInit {
 
   updateActivePlayer() {
     this.activePlayer = this.players.find(player => player.active);
+    this.activePlayerService.$player.next(this.activePlayer);
   }
 
 }
