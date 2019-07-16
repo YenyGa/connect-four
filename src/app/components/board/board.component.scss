@@ -42,6 +42,8 @@
 .board {
   display: grid;
   background: $board-background;
+  grid-column-gap: 0.5rem;
+  grid-row-gap: 0.7rem;
   height: 100%;
   position: relative;
   width: fit-content;

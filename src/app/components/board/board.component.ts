@@ -25,10 +25,10 @@ export class BoardComponent implements OnInit {
   constructor() { }
 
   ngOnInit() {
-    this.initializeGame();
+    this.boardHeight = 8;
+    this.boardWidth = 5;
 
-    this.boardHeight = 6;
-    this.boardWidth = 7;
+    this.initializeGame();
 
     this.gridSize = {
       'grid-template-columns': `repeat(${this.boardWidth}, 3rem)`,
@@ -37,15 +37,8 @@ export class BoardComponent implements OnInit {
   }
 
   initializeGame() {
-    this.boardMatrix = [
-      [0, 0, 0, 0, 0, 0],
-      [0, 0, 0, 0, 0, 0],
-      [0, 0, 0, 0, 0, 0],
-      [0, 0, 0, 0, 0, 0],
-      [0, 0, 0, 0, 0, 0],
-      [0, 0, 0, 0, 0, 0],
-      [0, 0, 0, 0, 0, 0]
-    ];
+    this.boardMatrix = [];
+    this.fillBoardMatrix();
 
     this.players = [
       { name: 'Player 1', identifier: PlayerIdentifiers.p1, active: true},
@@ -54,6 +47,16 @@ export class BoardComponent implements OnInit {
 
     this.activePlayer = this.players[0];
     this.winner = undefined;
+  }
+
+  fillBoardMatrix() {
+    for (let i = 0; i < this.boardWidth; i++) {
+      const column = [];
+      for (let j = 0; j < this.boardHeight; j++) {
+        column.push(0);
+      }
+      this.boardMatrix.push(column);
+    }
   }
 
   onClick(x: number, y: number) {
@@ -68,7 +71,7 @@ export class BoardComponent implements OnInit {
 
   getYPosition(x: number): number {
     let piecePosition: number;
-    for (let y = this.boardMatrix.length - 1; y >= 0; y--) {
+    for (let y = this.boardMatrix[x].length - 1; y >= 0; y--) {
       if (this.boardMatrix[x][y] === 0) {
         piecePosition = y;
         y = -1;
