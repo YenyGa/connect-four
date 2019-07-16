@@ -25,8 +25,8 @@ export class BoardComponent implements OnInit {
   constructor() { }
 
   ngOnInit() {
-    this.boardHeight = 8;
-    this.boardWidth = 5;
+    this.boardWidth = 8;
+    this.boardHeight = 6;
 
     this.initializeGame();
 
@@ -59,7 +59,7 @@ export class BoardComponent implements OnInit {
     }
   }
 
-  onClick(x: number, y: number) {
+  onClick(x: number) {
     const yFall = this.getYPosition(x);
     if (yFall !== undefined) {
       const startPosition: Coordinate = {x, y: 0};
