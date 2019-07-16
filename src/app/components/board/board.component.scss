@@ -40,20 +40,13 @@
 }
 
 .board {
+  display: grid;
   background: $board-background;
+  grid-column-gap: 0.5rem;
+  grid-row-gap: 0.7rem;
   height: 100%;
   position: relative;
   width: fit-content;
-
-  .board-row {
-    padding-bottom: 0.5rem;
-    padding-top: 0.5rem;
-
-    .board-col {
-      padding-right: 0.5rem;
-      padding-left: 0.5rem;
-    }
-  }
 
   .overlay {
     position: absolute;
