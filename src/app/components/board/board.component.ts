@@ -25,7 +25,7 @@ export class BoardComponent implements OnInit {
   constructor() { }
 
   ngOnInit() {
-    this.boardWidth = 8;
+    this.boardWidth = 7;
     this.boardHeight = 6;
 
     this.initializeGame();
