@@ -1,9 +1,10 @@
 @import "~src/app/styles/constants";
 
 .header {
+  color: $header;
   font-size: 3rem;
   font-weight: bold;
-  color: $header;
+  margin: auto;
 }
 
 .players {
@@ -13,7 +14,6 @@
   .circle {
     border-radius: 50%;
     height: 3rem;
-    margin: auto 1rem;
     width: 3rem;
 
     &.red {

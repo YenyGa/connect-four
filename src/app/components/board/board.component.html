@@ -1,9 +1,13 @@
-<div class="row justify-content-center mt-4 mb-4 header">Connect 4 The Game</div>
+<div class="row text-center justify-content-center mt-4 mb-4 header">Connect 4 The Game</div>
 <div class="row justify-content-center mb-4 players" *ngIf="!winner">
-  <div>Player 1</div>
-  <div class="circle red"></div>
-  <div class="circle blue"></div>
-  <div>Player 2</div>
+  <div class="col-sm-6 col-12 d-flex justify-content-center justify-content-sm-end">
+    <div class="mr-2">Player 1</div>
+    <div class="circle red"></div>
+  </div>
+  <div class="col-sm-6 col-12 d-flex justify-content-center justify-content-sm-start mt-2 mt-sm-0">
+    <div class="circle blue"></div>
+    <div class="ml-2">Player 2</div>
+  </div>
 </div>
 <div class="row justify-content-center mb-4 player-congratulation"
      *ngIf="winner"
