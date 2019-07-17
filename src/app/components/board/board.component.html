@@ -10,7 +10,7 @@
       <div class="ml-2">Player 2</div>
     </div>
   </div>
-  <div class="row justify-content-center mb-4 player-congratulation"
+  <div class="row justify-content-center mb-5 mb-sm-4 player-congratulation"
        *ngIf="winner"
        [ngClass]="{'red': winner.identifier === PlayerIdentifiers.p1, 'blue': winner.identifier === PlayerIdentifiers.p2}">
     <div>{{winner.name}} Won!</div>
