@@ -1,32 +1,34 @@
-<div class="row text-center justify-content-center mt-4 mb-4 header">Connect 4 The Game</div>
-<div class="row justify-content-center mb-4 players" *ngIf="!winner">
-  <div class="col-sm-6 col-12 d-flex justify-content-center justify-content-sm-end">
-    <div class="mr-2">Player 1</div>
-    <div class="circle red"></div>
-  </div>
-  <div class="col-sm-6 col-12 d-flex justify-content-center justify-content-sm-start mt-2 mt-sm-0">
-    <div class="circle blue"></div>
-    <div class="ml-2">Player 2</div>
-  </div>
-</div>
-<div class="row justify-content-center mb-4 player-congratulation"
-     *ngIf="winner"
-     [ngClass]="{'red': winner.identifier === PlayerIdentifiers.p1, 'blue': winner.identifier === PlayerIdentifiers.p2}">
-  <div>{{winner.name}} Won!</div>
-</div>
-<div class="container board" [ngStyle]="gridSize">
-  <div *ngFor="let row of boardMatrix; let x = index">
-    <div *ngFor="let item of row">
-      <app-piece (click)="onClick(x)" [item]="item" [activePlayer]="activePlayer"></app-piece>
+<div class="col-12">
+  <div class="row text-center justify-content-center mt-4 mb-4 header">Connect 4 The Game</div>
+  <div class="row justify-content-center mb-4 players" *ngIf="!winner">
+    <div class="col-sm-6 col-12 d-flex justify-content-center justify-content-sm-end">
+      <div class="mr-2">Player 1</div>
+      <div class="circle red"></div>
+    </div>
+    <div class="col-sm-6 col-12 d-flex justify-content-center justify-content-sm-start mt-2 mt-sm-0">
+      <div class="circle blue"></div>
+      <div class="ml-2">Player 2</div>
     </div>
   </div>
-  <div class="overlay" *ngIf="winner"></div>
-</div>
-<div class="row mt-4 justify-content-center">
-  <button type="button" class="btn btn-dark mr-3" (click)="undoTurn()" [disabled]="winner">
-    <i class="fa fa-undo"></i> Undo turn
-  </button>
-  <button type="button" class="btn btn-primary ml-3" (click)="resetGame()">
-    <i class="fa fa-gamepad"></i> New Game
-  </button>
+  <div class="row justify-content-center mb-4 player-congratulation"
+       *ngIf="winner"
+       [ngClass]="{'red': winner.identifier === PlayerIdentifiers.p1, 'blue': winner.identifier === PlayerIdentifiers.p2}">
+    <div>{{winner.name}} Won!</div>
+  </div>
+  <div class="container board" [ngStyle]="gridSize">
+    <div *ngFor="let row of boardMatrix; let x = index">
+      <div *ngFor="let item of row">
+        <app-piece (click)="onClick(x)" [item]="item" [activePlayer]="activePlayer"></app-piece>
+      </div>
+    </div>
+    <div class="overlay" *ngIf="winner"></div>
+  </div>
+  <div class="row mt-4 justify-content-center">
+    <button type="button" class="btn btn-dark mr-3" (click)="undoTurn()" [disabled]="winner">
+      <i class="fa fa-undo"></i> Undo turn
+    </button>
+    <button type="button" class="btn btn-primary ml-3" (click)="resetGame()">
+      <i class="fa fa-gamepad"></i> New Game
+    </button>
+  </div>
 </div>
