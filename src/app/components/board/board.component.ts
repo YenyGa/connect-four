@@ -112,10 +112,10 @@ export class BoardComponent implements OnInit {
   }
 
   isAWinner(x: number, y: number): boolean {
-    if (this.verticalConnections(x, y) + 1 === this.connectN ||
-      this.leftConnections(x, y) + 1 + this.rightConnections(x, y) === this.connectN ||
-      this.rightBottomConnections(x, y) + 1 + this.leftTopConnections(x, y) === this.connectN ||
-      this.rightTopConnections(x, y) + 1 + this.leftBottomConnections(x, y) === this.connectN) {
+    if (this.verticalConnections(x, y) + 1 >= this.connectN ||
+      this.leftConnections(x, y) + 1 + this.rightConnections(x, y) >= this.connectN ||
+      this.rightBottomConnections(x, y) + 1 + this.leftTopConnections(x, y) >= this.connectN ||
+      this.rightTopConnections(x, y) + 1 + this.leftBottomConnections(x, y) >= this.connectN) {
       return true;
     }
     return false;
