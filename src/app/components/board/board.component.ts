@@ -100,17 +100,17 @@ export class BoardComponent implements OnInit {
   }
 
   isAWinner(x: number, y: number): boolean {
-    return this.checkVerticalWin(x, y) ||
-      this.checkLeftWin(x, y) ||
-      this.checkRightWin(x, y) ||
-      this.checkRightBottomWin(x, y) ||
-      this.checkRightTopWin(x, y) ||
-      this.checkLeftBottomWin(x, y) ||
-      this.checkLeftTopWin(x, y);
+    if (this.verticalConnections(x, y) + 1 === this.connectN ||
+      this.leftConnections(x, y) + 1 + this.rightConnections(x, y) === this.connectN ||
+      this.rightBottomConnections(x, y) + 1 + this.leftTopConnections(x, y) === this.connectN ||
+      this.rightTopConnections(x, y) + 1 + this.leftBottomConnections(x, y) === this.connectN) {
+      return true;
+    }
+    return false;
   }
 
-  checkVerticalWin(x: number, y: number): boolean {
-    let connectCount = 1;
+  verticalConnections(x: number, y: number): number {
+    let connectCount = 0;
     for (let j = y + 1; j < y + this.connectN; j++) {
       if (this.boardMatrix[x][j] !== undefined && this.boardMatrix[x][j] === this.activePlayer.identifier) {
         connectCount++;
@@ -118,14 +118,11 @@ export class BoardComponent implements OnInit {
         j = y + this.connectN;
       }
     }
-    if (connectCount === this.connectN) {
-      return true;
-    }
-    return false;
+    return connectCount;
   }
 
-  checkLeftWin(x: number, y: number): boolean {
-    let connectCount = 1;
+  leftConnections(x: number, y: number): number {
+    let connectCount = 0;
     for (let i = x - 1; i > x - this.connectN; i--) {
       if (this.boardMatrix[i] !== undefined && this.boardMatrix[i][y] === this.activePlayer.identifier) {
         connectCount++;
@@ -133,14 +130,11 @@ export class BoardComponent implements OnInit {
         i = x - this.connectN;
       }
     }
-    if (connectCount === this.connectN) {
-      return true;
-    }
-    return false;
+    return connectCount;
   }
 
-  checkRightWin(x: number, y: number): boolean {
-    let connectCount = 1;
+  rightConnections(x: number, y: number): number {
+    let connectCount = 0;
     for (let i = x + 1; i < x + this.connectN; i++) {
       if (this.boardMatrix[i] !== undefined && this.boardMatrix[i][y] === this.activePlayer.identifier) {
         connectCount++;
@@ -148,14 +142,11 @@ export class BoardComponent implements OnInit {
         i = x + this.connectN;
       }
     }
-    if (connectCount === this.connectN) {
-      return true;
-    }
-    return false;
+    return connectCount;
   }
 
-  checkRightBottomWin(x: number, y: number): boolean {
-    let connectCount = 1;
+  rightBottomConnections(x: number, y: number): number {
+    let connectCount = 0;
     let j = y + 1;
     for (let i = x + 1; i < x + this.connectN; i++) {
       if (this.boardMatrix[i] !== undefined &&
@@ -167,14 +158,11 @@ export class BoardComponent implements OnInit {
         i = i + this.connectN;
       }
     }
-    if (connectCount === this.connectN) {
-      return true;
-    }
-    return false;
+    return connectCount;
   }
 
-  checkRightTopWin(x: number, y: number): boolean {
-    let connectCount = 1;
+  rightTopConnections(x: number, y: number): number {
+    let connectCount = 0;
     let j = y - 1;
     for (let i = x + 1; i < x + this.connectN; i++) {
       if (this.boardMatrix[i] !== undefined &&
@@ -186,14 +174,11 @@ export class BoardComponent implements OnInit {
         i = i + this.connectN;
       }
     }
-    if (connectCount === this.connectN) {
-      return true;
-    }
-    return false;
+    return connectCount;
   }
 
-  checkLeftBottomWin(x: number, y: number): boolean {
-    let connectCount = 1;
+  leftBottomConnections(x: number, y: number): number {
+    let connectCount = 0;
     let i = x - 1;
     for (let j = y + 1; j < y + this.connectN; j++) {
       if (this.boardMatrix[i] !== undefined &&
@@ -205,14 +190,11 @@ export class BoardComponent implements OnInit {
         j = j + this.connectN;
       }
     }
-    if (connectCount === this.connectN) {
-      return true;
-    }
-    return false;
+    return connectCount;
   }
 
-  checkLeftTopWin(x: number, y: number): boolean {
-    let connectCount = 1;
+  leftTopConnections(x: number, y: number): number {
+    let connectCount = 0;
     let i = x - 1;
     for (let j = y - 1; j > y - this.connectN; j--) {
       if (this.boardMatrix[i] !== undefined &&
@@ -224,10 +206,7 @@ export class BoardComponent implements OnInit {
         j = j - this.connectN;
       }
     }
-    if (connectCount === this.connectN) {
-      return true;
-    }
-    return false;
+    return connectCount;
   }
 
   resetGame() {
