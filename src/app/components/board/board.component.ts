@@ -19,6 +19,7 @@ export class BoardComponent implements OnInit {
   boardHeight: number;
   boardWidth: number;
   gridSize: any;
+  disableUndoButton: boolean;
 
   PlayerIdentifiers = PlayerIdentifiers;
 
@@ -39,6 +40,7 @@ export class BoardComponent implements OnInit {
   initializeGame() {
     this.boardMatrix = [];
     this.fillBoardMatrix();
+    this.disableUndoButton = false;
 
     this.players = [
       { name: 'Player 1', identifier: PlayerIdentifiers.p1, active: true},
@@ -60,6 +62,7 @@ export class BoardComponent implements OnInit {
   }
 
   onClick(x: number) {
+    this.disableUndoButton = false;
     const yFall = this.getYPosition(x);
     if (yFall !== undefined) {
       const startPosition: Coordinate = {x, y: 0};
@@ -214,6 +217,7 @@ export class BoardComponent implements OnInit {
   }
 
   undoTurn() {
+    this.disableUndoButton = true;
     this.boardMatrix[this.lastTurnCoordinates.x][this.lastTurnCoordinates.y] = 0;
     this.setPreviousTurn();
   }
