@@ -2,7 +2,6 @@ import {Component, OnInit} from '@angular/core';
 import {Player} from '../../shared/models/player.model';
 import {PlayerIdentifiers} from '../../shared/enums/player-identifiers.enum';
 import {Coordinate} from '../../shared/models/coordenate.model';
-import {FormControl, FormGroup, Validators} from '@angular/forms';
 
 @Component({
   selector: 'app-board',
@@ -16,39 +15,34 @@ export class BoardComponent implements OnInit {
   lastTurnCoordinates: Coordinate;
   activePlayer: Player;
   winner: Player;
-  connectN = 4;
+  connectN: number;
+  connectNOptions: number[];
   boardHeight: number;
   boardWidth: number;
   gridSize: any;
   disableUndoButton: boolean;
-
-  form: FormGroup;
 
   PlayerIdentifiers = PlayerIdentifiers;
 
   constructor() { }
 
   ngOnInit() {
-    this.boardWidth = 7;
-    this.boardHeight = 6;
-
-    this.form = new FormGroup({
-      connectN: new FormControl(4, [
-        Validators.min(4),
-        Validators.max(10),
-        Validators.pattern('[0-9]+')])
-    });
-    this.gridSize = {
-      'grid-template-columns': `repeat(${this.boardWidth}, 3rem)`,
-      'grid-template-rows': `repeat(${this.boardHeight}, 3rem)`
-    };
+    this.connectN = 4;
+    this.connectNOptions = [4, 5, 6, 7, 8, 9, 10];
 
     this.initializeGame();
   }
 
   initializeGame() {
+    this.boardWidth = 2 * this.connectN - 1;
+    this.boardHeight = this.connectN + 2;
     this.boardMatrix = [];
     this.fillBoardMatrix();
+    this.gridSize = {
+      'grid-template-columns': `repeat(${this.boardWidth}, 3rem)`,
+      'grid-template-rows': `repeat(${this.boardHeight}, 3rem)`
+    };
+
     this.disableUndoButton = false;
 
     this.players = [
@@ -257,9 +251,10 @@ export class BoardComponent implements OnInit {
     this.activePlayer = this.players.find(player => player.active);
   }
 
-  setConnectN() {
-    console.log(this.form.get('connectN').value);
-    console.log(this.form.get('connectN').errors);
+  setConnectN(connectN: number) {
+    this.connectN = connectN;
+    this.initializeGame();
+    console.log(this.boardMatrix);
   }
 
 }
