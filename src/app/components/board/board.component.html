@@ -1,5 +1,12 @@
 <div class="content mb-2">
-  <div class="row text-center justify-content-center mt-4 mb-4 header">Connect 4 The Game</div>
+  <div class="row text-center justify-content-center mt-4 mb-4 header">
+    Connect 4 The Game
+  </div>
+  <form [formGroup]="form" class="row justify-content-center mb-4">
+    <div>Make it Connect </div>
+    <input type="text" formControlName="connectN">
+    <button type="submit" (click)="setConnectN()">Start</button>
+  </form>
   <div class="row justify-content-center mb-4 players" *ngIf="!winner">
     <div class="col-sm-6 col-12 d-flex justify-content-center justify-content-sm-end">
       <div class="mr-2">Player 1</div>
