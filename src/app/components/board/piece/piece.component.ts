@@ -16,36 +16,10 @@ export class PieceComponent implements OnInit {
   activePlayer: Player;
 
   PlayerIdentifiers = PlayerIdentifiers;
-  p1HighLighted: boolean;
-  p2HighLighted: boolean;
 
   constructor() { }
 
   ngOnInit() {
-    this.p1HighLighted = false;
-    this.p2HighLighted = false;
-  }
-
-  mouseEnter() {
-    if (this.item === 0) {
-      if (this.activePlayer.identifier === PlayerIdentifiers.p1) {
-        this.p1HighLighted = true;
-      } else {
-        this.p2HighLighted = true;
-      }
-    }
-  }
-
-  changePieceColor() {
-    if (this.item === 0) {
-      this.p1HighLighted = !this.p1HighLighted;
-      this.p2HighLighted = !this.p2HighLighted;
-    }
-  }
-
-  mouseLeave() {
-    this.p2HighLighted = false;
-    this.p1HighLighted = false;
   }
 
 }
