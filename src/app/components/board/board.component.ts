@@ -21,6 +21,7 @@ export class BoardComponent implements OnInit {
   boardWidth: number;
   gridSize: any;
   disableUndoButton: boolean;
+  boardBlocked: boolean;
 
   PlayerIdentifiers = PlayerIdentifiers;
 
@@ -34,6 +35,7 @@ export class BoardComponent implements OnInit {
   }
 
   initializeGame() {
+    this.boardBlocked = false;
     this.boardWidth = 2 * this.connectN - 1;
     this.boardHeight = this.connectN + 2;
     this.boardMatrix = [];
@@ -65,13 +67,16 @@ export class BoardComponent implements OnInit {
   }
 
   onClick(x: number) {
-    const yFall = this.getYPosition(x);
-    if (yFall !== undefined) {
-      this.disableUndoButton = false;
-      const startPosition: Coordinate = {x, y: 0};
-      const endPosition: Coordinate = {x, y: yFall};
-      this.animateFall(startPosition, endPosition);
-      this.lastTurnCoordinates = endPosition;
+    if (!this.boardBlocked) {
+      const yFall = this.getYPosition(x);
+      if (yFall !== undefined) {
+        this.disableUndoButton = false;
+        const startPosition: Coordinate = {x, y: 0};
+        const endPosition: Coordinate = {x, y: yFall};
+        this.boardBlocked = true;
+        this.animateFall(startPosition, endPosition);
+        this.lastTurnCoordinates = endPosition;
+      }
     }
   }
 
@@ -96,6 +101,7 @@ export class BoardComponent implements OnInit {
         startPosition.y = startPosition.y + 1;
         this.animateFall(startPosition, endPosition);
       } else {
+        this.boardBlocked = false;
         if (this.isAWinner(endPosition.x, endPosition.y)) {
           this.winner = this.activePlayer;
         } else {
