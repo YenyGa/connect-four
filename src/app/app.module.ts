@@ -4,7 +4,6 @@ import { NgModule } from '@angular/core';
 import { AppComponent } from './app.component';
 import { BoardComponent } from './components/board/board.component';
 import { PieceComponent } from './components/board/piece/piece.component';
-import {ReactiveFormsModule} from '@angular/forms';
 
 @NgModule({
   declarations: [
@@ -13,8 +12,7 @@ import {ReactiveFormsModule} from '@angular/forms';
     PieceComponent
   ],
   imports: [
-    BrowserModule,
-    ReactiveFormsModule
+    BrowserModule
   ],
   providers: [],
   bootstrap: [AppComponent]
