@@ -7,6 +7,37 @@
   margin: auto;
 }
 
+.form {
+  margin: auto;
+
+  .description {
+    display: flex;
+    flex-direction: column;
+    font-size: 1.3rem;
+    justify-content: center;
+  }
+}
+
+.card {
+  text-align: center;
+  width: 2rem;
+  cursor: pointer;
+  display: flex;
+  flex-direction: column;
+  font-size: 1.3rem;
+  justify-content: center;
+  border-color: $board-background;
+  border-width: medium;
+  color: $board-background;
+  font-weight: bold;
+
+  &.active {
+    background: $board-background;
+    color: white;
+    cursor: default;
+  }
+}
+
 .players {
   font-size: 2rem;
   font-weight: bold;

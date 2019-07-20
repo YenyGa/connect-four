@@ -15,7 +15,8 @@ export class BoardComponent implements OnInit {
   lastTurnCoordinates: Coordinate;
   activePlayer: Player;
   winner: Player;
-  connectN = 4;
+  connectN: number;
+  connectNOptions: number[];
   boardHeight: number;
   boardWidth: number;
   gridSize: any;
@@ -26,20 +27,22 @@ export class BoardComponent implements OnInit {
   constructor() { }
 
   ngOnInit() {
-    this.boardWidth = 7;
-    this.boardHeight = 6;
+    this.connectN = 4;
+    this.connectNOptions = [4, 5, 6, 7, 8, 9, 10];
 
     this.initializeGame();
+  }
 
+  initializeGame() {
+    this.boardWidth = 2 * this.connectN - 1;
+    this.boardHeight = this.connectN + 2;
+    this.boardMatrix = [];
+    this.fillBoardMatrix();
     this.gridSize = {
       'grid-template-columns': `repeat(${this.boardWidth}, 3rem)`,
       'grid-template-rows': `repeat(${this.boardHeight}, 3rem)`
     };
-  }
 
-  initializeGame() {
-    this.boardMatrix = [];
-    this.fillBoardMatrix();
     this.disableUndoButton = false;
 
     this.players = [
@@ -62,9 +65,9 @@ export class BoardComponent implements OnInit {
   }
 
   onClick(x: number) {
-    this.disableUndoButton = false;
     const yFall = this.getYPosition(x);
     if (yFall !== undefined) {
+      this.disableUndoButton = false;
       const startPosition: Coordinate = {x, y: 0};
       const endPosition: Coordinate = {x, y: yFall};
       this.animateFall(startPosition, endPosition);
@@ -246,6 +249,13 @@ export class BoardComponent implements OnInit {
 
   updateActivePlayer() {
     this.activePlayer = this.players.find(player => player.active);
+  }
+
+  setConnectN(connectN: number) {
+    if (connectN !== this.connectN) {
+      this.connectN = connectN;
+      this.initializeGame();
+    }
   }
 
 }

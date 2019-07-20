@@ -1,5 +1,15 @@
 <div class="content mb-2">
-  <div class="row text-center justify-content-center mt-4 mb-4 header">Connect 4 The Game</div>
+  <div class="row text-center justify-content-center mt-4 mb-4 header">
+    Connect 4 The Game
+  </div>
+  <div class="row form justify-content-center mb-4">
+    <span class="description mr-2">How many pieces do you want to connect? </span>
+    <div class="col-12">
+      <div class="row justify-content-center">
+        <div *ngFor="let item of connectNOptions" class="card mr-1 ml-1" (click)="setConnectN(item)" [ngClass]="{'active': item === connectN}">{{item}}</div>
+      </div>
+    </div>
+  </div>
   <div class="row justify-content-center mb-4 players" *ngIf="!winner">
     <div class="col-sm-6 col-12 d-flex justify-content-center justify-content-sm-end">
       <div class="mr-2">Player 1</div>
@@ -25,10 +35,12 @@
   </div>
   <div class="row mt-4 justify-content-center">
     <button type="button" class="btn btn-dark mr-3" (click)="undoTurn()" [disabled]="winner || disableUndoButton">
-      <i class="fa fa-undo"></i> Undo turn
+<!--      <i class="fa fa-undo"></i> -->
+      Undo turn
     </button>
     <button type="button" class="btn btn-primary ml-3" (click)="resetGame()">
-      <i class="fa fa-gamepad"></i> New Game
+<!--      <i class="fa fa-gamepad"></i>-->
+      New Game
     </button>
   </div>
 </div>
