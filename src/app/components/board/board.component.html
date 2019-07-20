@@ -3,9 +3,11 @@
     Connect 4 The Game
   </div>
   <div class="row form justify-content-center mb-4">
-    <span class="description mr-2">Number of pieces you want to Connect: </span>
-    <div *ngFor="let item of connectNOptions">
-      <div class="card mr-1 ml-1" (click)="setConnectN(item)" [ngClass]="{'active': item === connectN}">{{item}}</div>
+    <span class="description mr-2">How many pieces do you want to connect? </span>
+    <div class="col-12">
+      <div class="row justify-content-center">
+        <div *ngFor="let item of connectNOptions" class="card mr-1 ml-1" (click)="setConnectN(item)" [ngClass]="{'active': item === connectN}">{{item}}</div>
+      </div>
     </div>
   </div>
   <div class="row justify-content-center mb-4 players" *ngIf="!winner">

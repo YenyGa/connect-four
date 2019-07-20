@@ -65,9 +65,9 @@ export class BoardComponent implements OnInit {
   }
 
   onClick(x: number) {
-    this.disableUndoButton = false;
     const yFall = this.getYPosition(x);
     if (yFall !== undefined) {
+      this.disableUndoButton = false;
       const startPosition: Coordinate = {x, y: 0};
       const endPosition: Coordinate = {x, y: yFall};
       this.animateFall(startPosition, endPosition);
@@ -252,9 +252,10 @@ export class BoardComponent implements OnInit {
   }
 
   setConnectN(connectN: number) {
-    this.connectN = connectN;
-    this.initializeGame();
-    console.log(this.boardMatrix);
+    if (connectN !== this.connectN) {
+      this.connectN = connectN;
+      this.initializeGame();
+    }
   }
 
 }
