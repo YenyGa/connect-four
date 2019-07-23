@@ -57,7 +57,7 @@
   }
 }
 
-.player-congratulation {
+.message {
   font-size: 2rem;
   font-weight: bold;
 
@@ -67,6 +67,10 @@
 
   &.blue {
     color: $blue-piece;
+  }
+
+  &.green {
+    color: $header;
   }
 }
 
