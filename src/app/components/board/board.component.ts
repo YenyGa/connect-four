@@ -15,8 +15,10 @@ export class BoardComponent implements OnInit {
   lastTurnCoordinates: Coordinate;
   activePlayer: Player;
   winner: Player;
+  draw: boolean;
   connectN: number;
   connectNOptions: number[];
+  piecesDroped: number;
   boardHeight: number;
   boardWidth: number;
   gridSize: any;
@@ -39,6 +41,8 @@ export class BoardComponent implements OnInit {
     this.boardWidth = 2 * this.connectN - 1;
     this.boardHeight = this.connectN + 2;
     this.boardMatrix = [];
+    this.piecesDroped = 0;
+    this.draw = false;
     this.fillBoardMatrix();
     this.gridSize = {
       'grid-template-columns': `repeat(${this.boardWidth}, 3rem)`,
@@ -76,6 +80,8 @@ export class BoardComponent implements OnInit {
         this.boardBlocked = true;
         this.animateFall(startPosition, endPosition);
         this.lastTurnCoordinates = endPosition;
+        this.piecesDroped = this.piecesDroped + 1;
+        this.draw = this.checkDraw();
       }
     }
   }
@@ -221,6 +227,13 @@ export class BoardComponent implements OnInit {
     return connectCount;
   }
 
+  checkDraw(): boolean {
+    if (this.piecesDroped === (5 * this.connectN + 1) * 2) {
+      return true;
+    }
+    return false;
+  }
+
   resetGame() {
     this.initializeGame();
   }
@@ -228,6 +241,7 @@ export class BoardComponent implements OnInit {
   undoTurn() {
     this.disableUndoButton = true;
     this.boardMatrix[this.lastTurnCoordinates.x][this.lastTurnCoordinates.y] = 0;
+    this.piecesDroped = this.piecesDroped - 1;
     this.setPreviousTurn();
   }
 
