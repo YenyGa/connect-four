@@ -45,8 +45,7 @@ export class BoardComponent implements OnInit {
     this.draw = false;
     this.fillBoardMatrix();
     this.gridSize = {
-      'grid-template-columns': `repeat(${this.boardWidth}, 3rem)`,
-      'grid-template-rows': `repeat(${this.boardHeight}, 3rem)`
+      'grid-template-columns': `repeat(${this.boardWidth}, auto)`
     };
 
     this.disableUndoButton = false;
