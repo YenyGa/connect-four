@@ -15,6 +15,7 @@
     flex-direction: column;
     font-size: 1.3rem;
     justify-content: center;
+    text-align: center;
   }
 }
 
@@ -74,6 +75,10 @@
   }
 }
 
+.board-container {
+  overflow: auto;
+}
+
 .board {
   display: grid;
   background: $board-background;
@@ -98,8 +103,7 @@
 }
 
 @media (max-width: 600px) {
-  .content {
-    flex: 0 0 100%;
-    width: fit-content;
+  .players {
+    display: none;
   }
 }

@@ -25,17 +25,19 @@
        [ngClass]="{'red': winner.identifier === PlayerIdentifiers.p1, 'blue': winner.identifier === PlayerIdentifiers.p2}">
     <div>{{winner.name}} Won!</div>
   </div>
-  <div class="row justify-content-center mb-5 mb-sm-4 message green"
+  <div class="row justify-content-center mb-4 mb-sm-4 message green"
        *ngIf="draw">
     <div>It's a Draw!</div>
   </div>
-  <div class="container board" [ngStyle]="gridSize">
-    <div *ngFor="let row of boardMatrix; let x = index">
-      <div *ngFor="let item of row">
-        <app-piece (click)="onClick(x)" [item]="item" [activePlayer]="activePlayer"></app-piece>
+  <div class="board-container">
+    <div class="container board" [ngStyle]="gridSize">
+      <div *ngFor="let row of boardMatrix; let x = index">
+        <div *ngFor="let item of row">
+          <app-piece (click)="onClick(x)" [item]="item" [activePlayer]="activePlayer"></app-piece>
+        </div>
       </div>
+      <div class="overlay" *ngIf="winner || draw"></div>
     </div>
-    <div class="overlay" *ngIf="winner || draw"></div>
   </div>
   <div class="row mt-4 justify-content-center">
     <button type="button" class="btn btn-dark mr-3" (click)="undoTurn()" [disabled]="winner || disableUndoButton || draw">
