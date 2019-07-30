@@ -1,2 +1,7 @@
 @import '~bootstrap/dist/css/bootstrap.min.css';
 @import "~font-awesome/css/font-awesome.min.css";
+
+@font-face {
+  font-family: beniguat;
+  src: url(assets/fonts/benigua/BenguiatBold.ttf) format("opentype");
+}

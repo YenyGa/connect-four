@@ -3,6 +3,7 @@
 .circle {
   background-color: white;
   border-radius: 50%;
+  box-shadow: inset 6px -4px 2px 0px $piece-shadow;
   margin-top: 0.4rem;
   margin-bottom: 0.4rem;
   position: relative;
@@ -21,16 +22,46 @@
       left: 0;
       right: 0;
       z-index: 2;
+
+      &.p1-highlight {
+        background-color: $red-highlight;
+      }
+
+      &.p2-highlight {
+        background-color: $blue-highlight;
+      }
     }
   }
 }
 
 .p1 {
-  background-color: $red-piece
+  background-color: $red-piece;
+  box-shadow: none;
+
+  .inner-circle {
+    border-radius: 50%;
+    height: 2.3rem;
+    width: 2.3rem;
+    transform: translateX(15%) translateY(15%);
+    background: linear-gradient(320deg, $red-piece 62%, $red-lighter-piece 96%);
+    border-style: solid;
+    border-color: $border-color-red;
+  }
 }
 
 .p2 {
   background-color: $blue-piece;
+  box-shadow: none;
+
+  .inner-circle {
+    border-radius: 50%;
+    height: 2.3rem;
+    width: 2.3rem;
+    transform: translateX(15%) translateY(15%);
+    background: linear-gradient(320deg, $blue-piece 62%, $blue-lighter-piece 96%);
+    border-style: solid;
+    border-color: $border-color-blue;
+  }
 }
 
 
@@ -40,5 +71,11 @@
     margin-bottom: 0.3rem;
     height: 2rem;
     width: 2rem;
+
+    .inner-circle {
+      height: 1.5rem;
+      width: 1.5rem;
+      transform: translateX(17%) translateY(17%);
+    }
   }
 }
