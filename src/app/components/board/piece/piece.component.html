@@ -3,7 +3,7 @@
      'p2': item === PlayerIdentifiers.p2}">
   <div class="inner-circle"></div>
   <div class="overlay"
-       [ngClass]="{'p1': activePlayer.identifier === PlayerIdentifiers.p1 && item === 0,
-       'p2': activePlayer.identifier === PlayerIdentifiers.p2 && item === 0}">
+       [ngClass]="{'p1-highlight': activePlayer.identifier === PlayerIdentifiers.p1 && item === 0,
+       'p2-highlight': activePlayer.identifier === PlayerIdentifiers.p2 && item === 0}">
   </div>
 </div>
