@@ -38,23 +38,22 @@ export class BoardComponent implements OnInit {
 
   initializeGame() {
     this.boardBlocked = false;
+    this.disableUndoButton = true;
     this.boardWidth = 2 * this.connectN - 1;
     this.boardHeight = this.connectN + 2;
     this.boardMatrix = [];
     this.piecesDropped = 0;
     this.draw = false;
     this.fillBoardMatrix();
+
     this.gridSize = {
       'grid-template-columns': `repeat(${this.boardWidth}, auto)`
     };
-
-    this.disableUndoButton = false;
 
     this.players = [
       { name: 'Player 1', identifier: PlayerIdentifiers.p1, active: true},
       { name: 'Player 2', identifier: PlayerIdentifiers.p2, active: false},
     ];
-
     this.activePlayer = this.players[0];
     this.winner = undefined;
   }
