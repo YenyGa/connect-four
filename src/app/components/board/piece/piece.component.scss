@@ -79,3 +79,13 @@
     }
   }
 }
+
+@media (max-width: 768px) {
+  .circle {
+    &:hover {
+      .overlay {
+        display: none;
+      }
+    }
+  }
+}
