@@ -13,10 +13,14 @@
   <div class="row justify-content-center mb-4 players" *ngIf="!winner && !draw">
     <div class="col-sm-6 col-12 d-flex justify-content-center justify-content-sm-end">
       <div class="mr-2">Player 1</div>
-      <div class="circle red"></div>
+      <div class="circle red">
+        <div class="inner-circle"></div>
+      </div>
     </div>
     <div class="col-sm-6 col-12 d-flex justify-content-center justify-content-sm-start mt-2 mt-sm-0">
-      <div class="circle blue"></div>
+      <div class="circle blue">
+        <div class="inner-circle"></div>
+      </div>
       <div class="ml-2">Player 2</div>
     </div>
   </div>

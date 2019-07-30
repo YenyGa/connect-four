@@ -50,10 +50,30 @@
 
     &.red {
       background-color: $red-piece;
+
+      .inner-circle {
+        border-radius: 50%;
+        height: 2.3rem;
+        width: 2.3rem;
+        transform: translateX(15%) translateY(15%);
+        background: linear-gradient(320deg, $red-piece 62%, $red-lighter-piece 96%);
+        border-style: solid;
+        border-color: $border-color-red;
+      }
     }
 
     &.blue {
       background-color: $blue-piece;
+
+      .inner-circle {
+        border-radius: 50%;
+        height: 2.3rem;
+        width: 2.3rem;
+        transform: translateX(15%) translateY(15%);
+        background: linear-gradient(320deg, $blue-piece 62%, $blue-lighter-piece 96%);
+        border-style: solid;
+        border-color: $border-color-blue;
+      }
     }
   }
 }
@@ -82,6 +102,9 @@
 .board {
   display: grid;
   background: $board-background;
+  border-color: $border;
+  border-radius: 0.3rem;
+  border-style: solid;
   grid-column-gap: 0.5rem;
   grid-row-gap: 0.7rem;
   height: 100%;
